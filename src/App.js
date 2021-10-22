@@ -1,5 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
+import {Router, Route, Switch} from "react-router-dom";
+import DoctorPage from "./pages/DoctorPage";
+import history from "./services/history";
 
 function App() {
   return (
@@ -18,6 +21,11 @@ function App() {
           Learn React
         </a>
       </header>
+      <Router history={history}>
+        <Switch>
+          <Route exact={true} path={['/doctor']} component={DoctorPage}/>
+        </Switch>
+      </Router>
     </div>
   );
 }
