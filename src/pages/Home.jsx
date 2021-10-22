@@ -1,5 +1,4 @@
-import React from 'react';
-import {Button} from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 import {useHistory} from "react-router-dom";
 
 function Home() {
@@ -12,10 +11,10 @@ function Home() {
 
     return (
         <div className='home-page'>
-           <Button className='btn btn-primary' onClick={() => {
+           <Button variant='primary' onClick={() => {
                clickHandler('/patient');
            }} >Patient</Button>
-           <Button className='btn btn-primary' onClick={() => {
+           <Button variant='primary' onClick={() => {
                clickHandler('/doctor');
            }}>Doctor</Button>
         </div>
