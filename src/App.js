@@ -3,10 +3,12 @@ import './App.css';
 import {Router, Route, Switch} from "react-router-dom";
 import DoctorPage from "./pages/DoctorPage";
 import history from "./services/history";
+import CustomNavbar from "./components/CustomNavbar";
 
 function App() {
   return (
     <div className="App">
+      <CustomNavbar />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
