@@ -1,20 +1,23 @@
 import './App.css';
-import {Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
 import DoctorPage from "./pages/DoctorPage";
-import history from "./services/history";
 import CustomNavbar from "./components/CustomNavbar";
+import Home from "./pages/Home";
+
 
 function App() {
-  return (
-    <div className="App">
-      <CustomNavbar />
-      <Router history={history}>
-        <Switch>
-          <Route exact={true} path={['/doctor']} component={DoctorPage}/>
-        </Switch>
-      </Router>
-    </div>
-  );
+
+    return (
+        <div className="App">
+            <CustomNavbar />
+            <Router >
+                <Switch>
+                    <Route exact path={['/doctor']} component={DoctorPage}/>
+                    <Route exact path={['', '/', '/home']} component={Home}/>
+                </Switch>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
