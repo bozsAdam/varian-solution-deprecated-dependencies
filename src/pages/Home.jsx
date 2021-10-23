@@ -1,3 +1,4 @@
+import './Home.css';
 import Button from 'react-bootstrap/Button';
 import {useHistory} from "react-router-dom";
 
@@ -10,13 +11,14 @@ function Home() {
     }
 
     return (
-        <div className='home-page'>
-           <Button variant='primary' onClick={() => {
-               clickHandler('/patient');
-           }} >Patient</Button>
-           <Button variant='primary' onClick={() => {
-               clickHandler('/doctor');
-           }}>Doctor</Button>
+        <div id='home-page'>
+            <div id='separator-line'/>
+            <Button id='patient-btn' variant='primary' onClick={() => {
+                clickHandler('/patient');
+            }} >Patient</Button>
+            <Button id='doctor-btn' variant='primary' onClick={() => {
+                clickHandler('/doctor');
+            }}>Doctor</Button>
         </div>
     )
 }
