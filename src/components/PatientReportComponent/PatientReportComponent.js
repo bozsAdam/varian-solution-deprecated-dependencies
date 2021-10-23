@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {parseB64Image} from "../../common/functions";
 import './PatientReportComponent.css';
 import {Col, Container, Row} from "react-bootstrap";
