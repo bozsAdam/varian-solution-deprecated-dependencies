@@ -13,6 +13,6 @@ export const parseTreatmentType = (treatmentEnum) => {
 
 export const parseB64Image = (b64ImageSource) => {
   const image = new Image();
-  image.src = `data:image/png;base64,${b64ImageSource}`;
+  image.src = b64ImageSource;
   return image;
 }

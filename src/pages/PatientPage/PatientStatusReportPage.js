@@ -8,7 +8,7 @@ function PatientStatusReportPage() {
 
     const history = useHistory();
 
-    const clickHandler = (route) => {
+    const navigate = (route) => {
         history.push(route);
     }
 
@@ -55,9 +55,9 @@ function PatientStatusReportPage() {
             },
             body: JSON.stringify({...groups}),
         })
-        .then(response => response.text())
+        .then(response => response)
         .then(data => {
-            console.log('Success:', data);
+            if (data.status === 200) navigate('/patient')
         })
         .catch((error) => {
             console.error('Error:', error);

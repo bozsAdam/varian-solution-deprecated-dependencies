@@ -1,12 +1,11 @@
 import './DoctorPage.css';
 import React, {useEffect, useState} from 'react';
-import {Col, Container, Dropdown, Row, Tab, Table, Tabs} from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
-import {parseB64Image} from '../../common/functions';
+import {Tab, Tabs} from "react-bootstrap";
 import httpService from '../../services/httpsService';
 import MessagesComponent from "../../components/MessagesComponent/MessagesComponent";
 import PatientFileComponent from "../../components/PatientFileComponent";
 import PatientListComponent from "../../components/PatientListComponent";
+import PatientReportComponent from "../../components/PatientReportComponent/PatientReportComponent";
 
 function DoctorPage() {
   const [tabKey, setTabKey] = useState('patient-list');
@@ -42,11 +41,6 @@ function DoctorPage() {
     }
   }
 
-  const injectReportImage = (reportImageSource) => {
-    const image = parseB64Image(reportImageSource);
-    return image.outerHTML;
-  }
-
   return (
     <div className='doctor-page'>
       <Tabs
@@ -72,11 +66,9 @@ function DoctorPage() {
         )}
         {selectedStatusReport && (
           <Tab eventKey="patient-status-report" title="Patient Status Report" >
-            <h1>Patient Status Report</h1>
-            <h2>{selectedStatusReport.symptoms}</h2>
-            <div
-              id={`report-image-${selectedStatusReport.id}`}
-              dangerouslySetInnerHTML={{__html: injectReportImage(selectedStatusReport.image)}}
+            <PatientReportComponent
+              patient={selectedPatient}
+              patientStatusReport={selectedStatusReport}
             />
           </Tab>
         )}

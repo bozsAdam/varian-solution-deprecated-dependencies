@@ -1,0 +1,33 @@
+#patient-status-report-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.areas div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.areas p {
+    margin: 0;
+    padding: 0 15px;
+    font-weight: bold;
+}
+
+.priority-field {
+    margin: 0;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.low {
+    color: green;
+}
+
+.medium {
+    color: orange;
+}
+
+.high {
+    color: red;
+}
