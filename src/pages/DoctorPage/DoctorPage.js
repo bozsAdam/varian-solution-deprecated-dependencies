@@ -3,36 +3,30 @@ import React, {useEffect, useState} from 'react';
 import {Col, Container, Dropdown, Row, Tab, Table, Tabs} from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import {demoStatusReports, sampleB64Image} from "../../common/sampleData";
-import axios from "axios";
-import {parseTreatmentType, parseB64Image} from '../../common/functions';
+import {parseB64Image} from '../../common/functions';
+import httpService from '../../services/httpsService';
 
 function DoctorPage() {
   const [tabKey, setTabKey] = useState('patient-list');
 
   const [patientList, setPatientList] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
-  const [patientStatusReports, setPatientStatusReports] = useState(demoStatusReports)
+  const [patientStatusReports, setPatientStatusReports] = useState(null);
   const [selectedStatusReport, setSelectedStatusReport] = useState(null);
 
   useEffect(async () => {
-    axios.get('https://varian-dd-2021.herokuapp.com/patient/list')
-      .then(response => response.data)
-      .then(patientListResponse => {
-        setPatientList(patientListResponse.map(patientEntity => {
-          patientEntity.diagnosisYear = (new Date(patientEntity.diagnosisYear)).getFullYear();
-          patientEntity.treatmentType = parseTreatmentType(patientEntity.treatmentType);
-          return patientEntity;
-        }));
-      })
-      .catch(e => {
-      console.log('Error: ', e);
-    })
+    httpService.getPatientList().then(resp => setPatientList(resp));
   },[])
 
   const selectPatient = (patientId) => {
+    setPatientStatusReports(null);
     const patient = patientList.find(pat => pat.id === patientId);
     setSelectedPatient(patient ? patient : null);
     if (patient) {
+      httpService.getPatientReports(patient.id).then(statusReports => {
+        console.log(statusReports);
+        setPatientStatusReports(statusReports);
+      });
       setTabKey('patient-file');
     }
   }
@@ -122,17 +116,18 @@ function DoctorPage() {
               <Row>
                 <Col className='col-cell title'>Status Reports</Col>
                 <Col className='col-cell'>
-                  <Dropdown>
-                    <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
-                      Status Reports
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => selectStatusReport(0)}>Status Report 1</Dropdown.Item>
-                      <Dropdown.Item onClick={() => selectStatusReport(1)}>Status Report 2</Dropdown.Item>
-                      <Dropdown.Item onClick={() => selectStatusReport(2)}>Status Report 3</Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                  {patientStatusReports && patientStatusReports.length ? (
+                    <Dropdown>
+                      <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
+                        Status Reports
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        {patientStatusReports.map(statusReport => {
+                          return (<Dropdown.Item key={`patient-status-report-${statusReport.id}`} onClick={() => selectStatusReport(statusReport.id)}>{statusReport.id}</Dropdown.Item>)
+                        })}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  ) : (<p>There is no Status Report yet.</p>)}
                 </Col>
               </Row>
             </Container>
