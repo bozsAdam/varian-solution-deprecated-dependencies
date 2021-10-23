@@ -32,7 +32,8 @@ function PatientStatusReportPage() {
 
     const submitForm = (e) => {
         e.preventDefault();
-        let groups = [];
+        let groupContainer = [];
+        let groups = {};
         for( let formGroup of e.target.children ) {
             if (formGroup.children.length > 0) {
                 let groupEntries = [];
@@ -42,12 +43,26 @@ function PatientStatusReportPage() {
                     }
                 }
                 let groupName = formGroup.childNodes[0].htmlFor;
-                groups.push({[groupName]:groupEntries})
+                groups[groupName] = groupEntries;
             }
         }
-        groups.push({image:image})
-        groups.push({priority:"MEDIUM"})
-        console.log(groups)
+        groups.image = image;
+        groups.priority = "MEDIUM";
+        groupContainer.push(groups)
+        fetch('https://varian-dd-2021.herokuapp.com/statusreport/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({groups}),
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
 
     return (
