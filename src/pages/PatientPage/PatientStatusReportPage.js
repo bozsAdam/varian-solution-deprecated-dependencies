@@ -1,16 +1,8 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import {useHistory} from "react-router-dom";
-import {FormGroup} from "react-bootstrap";
 
 function PatientStatusReportPage() {
-
-    const history = useHistory();
-
-    const clickHandler = (route) => {
-        history.push(route);
-    }
 
     let image;
 
