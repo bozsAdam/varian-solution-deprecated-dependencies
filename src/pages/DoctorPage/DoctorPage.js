@@ -1,15 +1,33 @@
 import './DoctorPage.css';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Col, Container, Dropdown, Row, Tab, Table, Tabs} from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
-import {demoPatientList} from "../../common/sampleData";
+import {demoStatusReports, sampleB64Image} from "../../common/sampleData";
+import axios from "axios";
+import {parseTreatmentType, parseB64Image} from '../../common/functions';
 
 function DoctorPage() {
   const [tabKey, setTabKey] = useState('patient-list');
 
-  const [patientList, setPatientList] = useState(demoPatientList);
+  const [patientList, setPatientList] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState(null);
+  const [patientStatusReports, setPatientStatusReports] = useState(demoStatusReports)
   const [selectedStatusReport, setSelectedStatusReport] = useState(null);
+
+  useEffect(async () => {
+    axios.get('https://varian-dd-2021.herokuapp.com/patient/list')
+      .then(response => response.data)
+      .then(patientListResponse => {
+        setPatientList(patientListResponse.map(patientEntity => {
+          patientEntity.diagnosisYear = (new Date(patientEntity.diagnosisYear)).getFullYear();
+          patientEntity.treatmentType = parseTreatmentType(patientEntity.treatmentType);
+          return patientEntity;
+        }));
+      })
+      .catch(e => {
+      console.log('Error: ', e);
+    })
+  },[])
 
   const selectPatient = (patientId) => {
     const patient = patientList.find(pat => pat.id === patientId);
@@ -17,6 +35,19 @@ function DoctorPage() {
     if (patient) {
       setTabKey('patient-file');
     }
+  }
+
+  const selectStatusReport = (statusReportId) => {
+    const statusReport = patientStatusReports.find(statusRep => statusRep.id === statusReportId);
+    setSelectedStatusReport(statusReport);
+    if (statusReport) {
+      setTabKey('patient-status-report');
+    }
+  }
+
+  const injectReportImage = (reportImageSource) => {
+    const image = parseB64Image(reportImageSource);
+    return image.outerHTML;
   }
 
   return (
@@ -39,7 +70,7 @@ function DoctorPage() {
                 <th>Stage</th>
                 <th>Diagnosis Year</th>
                 <th>Treatment Type</th>
-                <th>Status Reports</th>
+                <th>Patient Files</th>
               </tr>
               </thead>
               <tbody>
@@ -52,7 +83,7 @@ function DoctorPage() {
                   <td className='table-cell'>{patient.diagnosisYear}</td>
                   <td className='table-cell'>{patient.treatmentType}</td>
                   <td>
-                    <Button variant='Primary' onClick={() => {
+                    <Button variant='Primary' className='view-file-btn' onClick={() => {
                       selectPatient(patient.id);
                     }}>View File</Button>
                   </td>
@@ -97,9 +128,9 @@ function DoctorPage() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item >Status Report 1</Dropdown.Item>
-                      <Dropdown.Item >Status Report 2</Dropdown.Item>
-                      <Dropdown.Item >Status Report 3</Dropdown.Item>
+                      <Dropdown.Item onClick={() => selectStatusReport(0)}>Status Report 1</Dropdown.Item>
+                      <Dropdown.Item onClick={() => selectStatusReport(1)}>Status Report 2</Dropdown.Item>
+                      <Dropdown.Item onClick={() => selectStatusReport(2)}>Status Report 3</Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </Col>
@@ -108,8 +139,13 @@ function DoctorPage() {
           </Tab>
         )}
         {selectedStatusReport && (
-          <Tab eventKey="messages" title="Patient Status Report" >
+          <Tab eventKey="patient-status-report" title="Patient Status Report" >
             <h1>Patient Status Report</h1>
+            <h2>{selectedStatusReport.symptoms}</h2>
+            <div
+              id={`report-image-${selectedStatusReport.id}`}
+              dangerouslySetInnerHTML={{__html: injectReportImage(selectedStatusReport.image)}}
+            ></div>
           </Tab>
         )}
         <Tab eventKey="messages" title="Messages" >

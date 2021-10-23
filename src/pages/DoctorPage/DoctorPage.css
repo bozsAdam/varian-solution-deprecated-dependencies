@@ -9,6 +9,14 @@
     vertical-align: middle;
 }
 
+button.view-file-btn.btn.btn-Primary:hover {
+    color: rebeccapurple;
+}
+
+.view-file-btn:hover {
+    color: blueviolet;
+}
+
 #dropdown-basic {
     border: none !important;
     box-shadow: none !important;
