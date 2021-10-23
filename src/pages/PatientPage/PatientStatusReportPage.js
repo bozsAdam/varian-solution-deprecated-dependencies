@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {useHistory} from "react-router-dom";
+import {FormGroup} from "react-bootstrap";
 
 function PatientStatusReportPage() {
 
@@ -29,11 +30,17 @@ function PatientStatusReportPage() {
 
     getImage();
 
+    const submitForm = (e) => {
+        e.preventDefault();
+        console.log(e);
+    }
+
     return (
         <div className='patient-status-report-page' onLoad={() => {getImage()}}>
             <h1>Please fill the form</h1>
 
-            <Form>
+            <form onSubmit={submitForm}>
+            <FormGroup role='form'>
                 <Form.Label style={{fontWeight: 'bold'}}>Possible late- and long-term effects that someone with this type of cancer and treatment may
                     experience</Form.Label>
                 {['checkbox'].map((type) => (
@@ -160,10 +167,9 @@ function PatientStatusReportPage() {
                         />
                     </div>
                 ))}
-            </Form>
-            <Button variant='primary' onClick={() => {
-                clickHandler('/submitreport');
-            }}>Submit report</Button>
+            </FormGroup>
+                <Button variant='primary' type='submit'>Submit report</Button>
+            </form>
         </div>
     )
 }
