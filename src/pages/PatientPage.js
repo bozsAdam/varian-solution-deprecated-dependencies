@@ -1,3 +1,4 @@
+import './PatientPage.css';
 import React from 'react';
 import {Tab, Tabs} from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
@@ -24,12 +25,14 @@ function PatientPage() {
                     <h1>Messages</h1>
                 </Tab>
                 <Tab eventKey="status-report" title="Status report" >
-                    <Button variant='primary' onClick={() => {
-                        clickHandler('/createreport');
-                    }}>Create status report</Button>
-                    <Button variant='primary' onClick={() => {
-                        clickHandler('/viewreports');
-                    }}>View status report history</Button>
+                    <div id='status-report-page'>
+                        <Button id='create-btn' variant='primary' onClick={() => {
+                            clickHandler('/createreport');
+                        }}>Create status report</Button>
+                        <Button id='view-btn' variant='primary' onClick={() => {
+                            clickHandler('/viewreports');
+                        }}>View status report history</Button>
+                    </div>
                 </Tab>
             </Tabs>
         </div>

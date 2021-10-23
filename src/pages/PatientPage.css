@@ -1,0 +1,23 @@
+#status-report-page {
+    width: 100vw;
+    height: calc(100vh - 56px - 42px);
+    background:
+            linear-gradient(to top left,
+            rgba(0,0,0,0) 0%,
+            rgba(0,0,0,0) calc(50% - 2px),
+            rgba(0,0,0,1) 50%,
+            rgba(0,0,0,0) calc(50% + 2px),
+            rgba(0,0,0,0) 100%)
+}
+
+#create-btn {
+    position: absolute;
+    top: 35%;
+    left: 25%;
+}
+
+#view-btn {
+    position: absolute;
+    top: 65%;
+    right: 25%;
+}
