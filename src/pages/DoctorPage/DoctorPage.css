@@ -1,0 +1,35 @@
+#table-container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+#patient-list {
+    width: 90vw;
+    vertical-align: middle;
+}
+
+button.view-file-btn.btn.btn-Primary:hover {
+    color: rebeccapurple;
+}
+
+.view-file-btn:hover {
+    color: blueviolet;
+}
+
+#dropdown-basic {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.col-cell {
+    border: 1px solid black;
+}
+
+.col-cell.title {
+    display: flex;
+    font-weight: bold;
+    text-align: left;
+    align-items: center;
+}

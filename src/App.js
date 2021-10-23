@@ -1,11 +1,11 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import DoctorPage from "./pages/DoctorPage";
-import PatientPage from "./pages/PatientPage";
-import PatientStatusReportPage from "./pages/PatientStatusReportPage";
-import PatientStatusReportPainMarkPage from "./pages/PatientStatusReportPainMarkPage";
+import DoctorPage from "./pages/DoctorPage/DoctorPage";
+import PatientPage from "./pages/PatientPage/PatientPage";
+import PatientStatusReportPage from "./pages/PatientPage/PatientStatusReportPage";
+import PatientStatusReportPainMarkPage from "./pages/PatientPage/PatientStatusReportPainMarkPage";
 import CustomNavbar from "./components/CustomNavbar";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import React from "react";
 
 
