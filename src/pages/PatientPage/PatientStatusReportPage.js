@@ -32,7 +32,6 @@ function PatientStatusReportPage() {
 
     const submitForm = (e) => {
         e.preventDefault();
-        let groupContainer = [];
         let groups = {};
         for( let formGroup of e.target.children ) {
             if (formGroup.children.length > 0) {
@@ -48,7 +47,6 @@ function PatientStatusReportPage() {
         }
         groups.image = image;
         groups.priority = "MEDIUM";
-        groupContainer.push(groups)
         fetch('https://varian-dd-2021.herokuapp.com/statusreport/add', {
             method: 'POST',
             headers: {
