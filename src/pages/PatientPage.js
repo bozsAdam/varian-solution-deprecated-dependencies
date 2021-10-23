@@ -1,8 +1,15 @@
 import React from 'react';
 import {Tab, Tabs} from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
+import {useHistory} from "react-router-dom";
 
 function PatientPage() {
 
+    const history = useHistory();
+
+    const clickHandler = (route) => {
+        history.push(route);
+    }
 
     return (
         <div className='patient-page'>
@@ -16,8 +23,15 @@ function PatientPage() {
                 <Tab eventKey="messages" title="Messages" >
                     <h1>Messages</h1>
                 </Tab>
+                <Tab eventKey="status-report" title="Status report" >
+                    <Button variant='primary' onClick={() => {
+                        clickHandler('/createreport');
+                    }}>Create status report</Button>
+                    <Button variant='primary' onClick={() => {
+                        clickHandler('/viewreports');
+                    }}>View status report history</Button>
+                </Tab>
             </Tabs>
-            <iframe src="https://junctionx2021dd.herokuapp.com/paint" style={{width: "600px", height: "600px"}}></iframe>
         </div>
     )
 }
