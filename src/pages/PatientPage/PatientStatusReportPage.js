@@ -45,6 +45,7 @@ function PatientStatusReportPage() {
                 groups[groupName] = groupEntries;
             }
         }
+        groups.patient = {id:61};
         groups.image = image;
         groups.priority = "MEDIUM";
         fetch('https://varian-dd-2021.herokuapp.com/statusreport/add', {
