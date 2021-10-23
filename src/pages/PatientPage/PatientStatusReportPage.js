@@ -22,7 +22,6 @@ function PatientStatusReportPage() {
             .then(response => response.text())
             .then(data => {
                 image = data;
-                console.log('Success on loading:', data);
             })
             .catch((error) => {
                 console.error('Error:', error);

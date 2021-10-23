@@ -6,11 +6,7 @@ import {Col, Container, Row} from "react-bootstrap";
 const PatientReportComponent = (props) => {
   const {patientStatusReport, patient} = props;
 
-  useEffect(() => {
-    console.log(patientStatusReport);
-  })
-
-  const injectReportImage = (reportImageSource) => {
+  const createReportImage = (reportImageSource) => {
     const image = parseB64Image(reportImageSource);
     image.id = 'patient-status-report-image';
     return image.outerHTML;
@@ -69,7 +65,7 @@ const PatientReportComponent = (props) => {
           <Col className='col-cell'>
             <div
               id={`report-image-container-${patientStatusReport.id}`}
-              dangerouslySetInnerHTML={{__html: injectReportImage(patientStatusReport.image)}}
+              dangerouslySetInnerHTML={{__html: createReportImage(patientStatusReport.image)}}
             />
           </Col>
         </Row>
