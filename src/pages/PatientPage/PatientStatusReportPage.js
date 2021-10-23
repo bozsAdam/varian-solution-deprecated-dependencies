@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {useHistory} from "react-router-dom";
 import {FormGroup} from "react-bootstrap";
 
 function PatientStatusReportPage() {
+
+    const [isButtonDisable, setIsButtonDisabled] = useState(false);
 
     const history = useHistory();
 
@@ -31,6 +33,7 @@ function PatientStatusReportPage() {
     getImage();
 
     const submitForm = (e) => {
+        setIsButtonDisabled(true);
         e.preventDefault();
         let groups = {};
         for( let formGroup of e.target.children ) {
@@ -196,7 +199,7 @@ function PatientStatusReportPage() {
                     />
                 </div>
             </Form.Group>
-                <Button variant='primary' type='submit'>Submit report</Button>
+                <Button disabled={isButtonDisable} variant='primary' type='submit'>Submit report</Button>
             </Form>
         </div>
     )
