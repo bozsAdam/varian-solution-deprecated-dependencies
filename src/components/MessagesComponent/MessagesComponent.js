@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import './MessagesComponent.css';
 import MessageComponent from "../MessageComponent/MessageComponent";
+import MyMessageComponent from "../MessageComponent/MyMessageComponent";
 
 const MessagesComponent = (props) => {
   const {patientList} = props;
@@ -26,6 +27,7 @@ const MessagesComponent = (props) => {
           <div>
             <h3>{selectedPatientForMessage.name}</h3>
             <MessageComponent message={"mockedMessage"}></MessageComponent>
+            <MyMessageComponent message={"mockedMyMessage"}></MyMessageComponent>
           </div>
         ) : (
           <div>Please select Patient to show messages.</div>
