@@ -4,7 +4,7 @@ import {Col, Container, Dropdown, Row, Tab, Table, Tabs} from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import {parseB64Image} from '../../common/functions';
 import httpService from '../../services/httpsService';
-import MessagesComponent from "../../components/MessagesComponent";
+import MessagesComponent from "../../components/MessagesComponent/MessagesComponent";
 import PatientFileComponent from "../../components/PatientFileComponent";
 import PatientListComponent from "../../components/PatientListComponent";
 
