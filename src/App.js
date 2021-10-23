@@ -1,10 +1,10 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
-import DoctorPage from "./pages/DoctorPage";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import DoctorPage from "./pages/DoctorPage/DoctorPage";
 import PatientPage from "./pages/PatientPage";
 import PatientStatusReportPage from "./pages/PatientStatusReportPage";
 import CustomNavbar from "./components/CustomNavbar";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import React from "react";
 
 
