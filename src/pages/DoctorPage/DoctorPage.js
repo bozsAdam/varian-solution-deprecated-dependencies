@@ -1,6 +1,6 @@
 import './DoctorPage.css';
 import React, {useState} from 'react';
-import {Col, Container, Row, Tab, Table, Tabs} from "react-bootstrap";
+import {Col, Container, Dropdown, Row, Tab, Table, Tabs} from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import {demoPatientList} from "../../common/sampleData";
 
@@ -45,12 +45,12 @@ function DoctorPage() {
               <tbody>
               {(patientList && patientList.map(patient => {
                 return (<tr key={`key-${patient.id}`}>
-                  <td>{patient.id}</td>
-                  <td>{patient.name}</td>
-                  <td>{patient.cancerType}</td>
-                  <td>{patient.stage}</td>
-                  <td>{patient.diagnosisYear}</td>
-                  <td>{patient.treatmentType}</td>
+                  <td className='table-cell'>{patient.id}</td>
+                  <td className='table-cell'>{patient.name}</td>
+                  <td className='table-cell'>{patient.cancerType}</td>
+                  <td className='table-cell'>{patient.stage}</td>
+                  <td className='table-cell'>{patient.diagnosisYear}</td>
+                  <td className='table-cell'>{patient.treatmentType}</td>
                   <td>
                     <Button variant='Primary' onClick={() => {
                       selectPatient(patient.id);
@@ -91,7 +91,17 @@ function DoctorPage() {
               <Row>
                 <Col className='col-cell title'>Status Reports</Col>
                 <Col className='col-cell'>
-                  Dropdown Placeholder
+                  <Dropdown>
+                    <Dropdown.Toggle variant="outline-info" id="dropdown-basic">
+                      Status Reports
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item >Status Report 1</Dropdown.Item>
+                      <Dropdown.Item >Status Report 2</Dropdown.Item>
+                      <Dropdown.Item >Status Report 3</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </Col>
               </Row>
             </Container>

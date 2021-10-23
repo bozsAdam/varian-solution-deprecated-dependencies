@@ -6,6 +6,13 @@
 
 #patient-list {
     width: 90vw;
+    vertical-align: middle;
+}
+
+#dropdown-basic {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
 }
 
 .col-cell {
@@ -13,6 +20,8 @@
 }
 
 .col-cell.title {
+    display: flex;
     font-weight: bold;
     text-align: left;
+    align-items: center;
 }
