@@ -32,11 +32,35 @@ function PatientStatusReportPage() {
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log(e.target);
-        const data = new FormData(e.target);
-        const value = Object.fromEntries(data.entries());
-        value.topics = data.getAll("topics");
-        console.log(value);
+        let groups = {};
+        for( let formGroup of e.target.children ) {
+            if (formGroup.children.length > 0) {
+                let groupEntries = [];
+                for( let checkbox of formGroup.children[1].children ) {
+                    if (checkbox.children[0].checked === true) {
+                        groupEntries.push(checkbox.outerText);
+                    }
+                }
+                let groupName = formGroup.childNodes[0].htmlFor;
+                groups[groupName] = groupEntries;
+            }
+        }
+        groups.image = image;
+        groups.priority = "MEDIUM";
+        fetch('https://varian-dd-2021.herokuapp.com/statusreport/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({groups}),
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Success:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     }
 
     return (
@@ -44,7 +68,7 @@ function PatientStatusReportPage() {
             <h1>Please fill the form</h1>
 
             <Form onSubmit={submitForm}>
-            <FormGroup role='form'>
+            <Form.Group controlId="symptomAreas">
                 <Form.Label style={{fontWeight: 'bold'}}>Possible late- and long-term effects that someone with this type of cancer and treatment may
                     experience
                 </Form.Label>
@@ -106,6 +130,8 @@ function PatientStatusReportPage() {
                         id={`inline-checkbox-2`}
                     />
                 </div>
+            </Form.Group>
+            <Form.Group controlId="lifestyleAreas">
                 <Form.Label style={{fontWeight: 'bold'}}>Cancer survivors may experience issues with the areas listed below. If you have any concerns
                     in these or other areas, please speak with your doctors or nurses to find out how you can get
                     help with them
@@ -168,7 +194,7 @@ function PatientStatusReportPage() {
                         id={`inline-checkbox-2`}
                     />
                 </div>
-            </FormGroup>
+            </Form.Group>
                 <Button variant='primary' type='submit'>Submit report</Button>
             </Form>
         </div>
