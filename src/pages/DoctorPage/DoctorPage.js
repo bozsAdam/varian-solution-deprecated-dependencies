@@ -14,6 +14,7 @@ function DoctorPage() {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [patientStatusReports, setPatientStatusReports] = useState(null);
   const [selectedStatusReport, setSelectedStatusReport] = useState(null);
+  const [isLoadingStatusReports, setIsLoadingStatusReports] = useState(false);
 
   useEffect(async () => {
     httpService.getPatientList().then(resp => setPatientList(resp));
@@ -25,9 +26,10 @@ function DoctorPage() {
     const patient = patientList.find(pat => pat.id === patientId);
     setSelectedPatient(patient ? patient : null);
     if (patient) {
+      setIsLoadingStatusReports(true);
       httpService.getPatientReports(patient.id).then(statusReports => {
-        console.log(statusReports);
         setPatientStatusReports(statusReports);
+        setIsLoadingStatusReports(false);
       });
       setTabKey('patient-file');
     }
@@ -60,6 +62,7 @@ function DoctorPage() {
             <PatientFileComponent
               selectedPatient={selectedPatient}
               patientStatusReports={patientStatusReports}
+              isLoadingStatusReports={isLoadingStatusReports}
               selectStatusReport={selectStatusReport}
             />
           </Tab>

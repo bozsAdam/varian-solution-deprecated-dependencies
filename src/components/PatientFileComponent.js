@@ -3,7 +3,12 @@ import {Col, Container, Dropdown, Row, Tab} from "react-bootstrap";
 
 
 export default function PatientFileComponent(props) {
-  const {selectedPatient, selectStatusReport, patientStatusReports } = props;
+  const {
+    selectedPatient,
+    selectStatusReport,
+    patientStatusReports,
+    isLoadingStatusReports
+  } = props;
 
   return (
     <>
@@ -45,7 +50,10 @@ export default function PatientFileComponent(props) {
                   })}
                 </Dropdown.Menu>
               </Dropdown>
-            ) : (<p>There is no Status Report yet.</p>)}
+            ) :
+              isLoadingStatusReports ?
+                (<p>Loading...</p>) :
+                (<p>There is no Status Report yet.</p>)}
           </Col>
         </Row>
       </Container>
