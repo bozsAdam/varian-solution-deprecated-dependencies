@@ -45,7 +45,7 @@ function PatientStatusReportPage() {
                 groups[groupName] = groupEntries;
             }
         }
-        groups.patient = {id:61};
+        groups.patient = {id:1};
         groups.image = image;
         groups.priority = "MEDIUM";
         fetch('https://varian-dd-2021.herokuapp.com/statusreport/add', {
@@ -53,7 +53,7 @@ function PatientStatusReportPage() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({groups}),
+            body: JSON.stringify({...groups}),
         })
         .then(response => response.text())
         .then(data => {
