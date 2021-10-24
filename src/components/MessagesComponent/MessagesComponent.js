@@ -16,19 +16,12 @@ const MessagesComponent = (props) => {
         webSocket.onmessage = (message) => {
             let parsedData = JSON.parse(message.data);
             parsedData.sender = "Doctor Strange";
-            // addMessage(parsedData);
             messages.push(parsedData);
             setMessages([...messages]);
         };
         setSocket(webSocket);
         console.log("successfully connected to socket");
     }, []);
-
-
-  const addMessage = (message) => {
-      const newMessages = [...messages, message];
-      setMessages(newMessages);
-  }
 
   const sendMessage = () => {
       socket.send(JSON.stringify({
@@ -113,7 +106,7 @@ const MessagesComponent = (props) => {
                               />
                                   <Button
                                       id="sendChat"
-                                      onClick={(event) => {
+                                      onClick={() => {
                                         sendMessage();
                                       }}
                                   > kattanj rá</Button>
