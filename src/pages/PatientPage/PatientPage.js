@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import {useHistory} from "react-router-dom";
 import PatientFileComponent from "../../components/PatientFileComponent";
 import httpService from "../../services/httpsService";
+import PatientMessagesComponent from "../../components/PatientMessageComponent/PatientMessagesComponent";
 
 function PatientPage() {
     const [tabKey, setTabKey] = useState('home');
@@ -57,8 +58,9 @@ function PatientPage() {
                       />
                     )}
                 </Tab>
-                <Tab eventKey="messages" title="Messages" >
-                    <h1>Messages</h1>
+                <Tab eventKey="messages" title="Messaging" >
+                    <h1>Messaging</h1>
+                    <PatientMessagesComponent />
                 </Tab>
                 <Tab eventKey="status-report" title="Status report" >
                     <div id='status-report-page'>

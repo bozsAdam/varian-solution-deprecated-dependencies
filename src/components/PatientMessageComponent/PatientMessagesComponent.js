@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from "react";
-import './MessagesComponent.css';
+import './PatientMessageComponent.css';
 import {Button, Card, Form} from "react-bootstrap";
 
-const MessagesComponent = (props) => {
-  const {patientList} = props;
-  const [selectedPatientForMessage, setSelectedPatientForMessage] = useState(null);
+const PatientMessagesComponent = () => {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [socket, setSocket] = useState(null);
@@ -25,31 +23,17 @@ const MessagesComponent = (props) => {
   const sendMessage = () => {
       socket.send(JSON.stringify({
           "message": text,
-          "sentByDoctor": true,
-          "sender": "Doctor Strange"
+          "sentByDoctor": false,
+          "sender": "Thomas Schneider"
       }));
       setText('');
   }
 
   return (
     <div id='messages-container'>
-      <div id='messages-patient-list'>
-        {patientList && (patientList.map(patient => {
-          return (
-            <div
-              className='messages-patient-name'
-              key={patient.id}
-              onClick={() => {
-                setSelectedPatientForMessage(patient)
-              }}
-            >{patient.name}</div>
-          )})
-        )}
-      </div>
       <div id='messages-chat-container'>
-        {selectedPatientForMessage ? (
           <div>
-            <h3>{selectedPatientForMessage.name}</h3>
+            <h3>Doctor Strange</h3>
               <div id="messageContainer">
                 {messages.map((message, key) => {
                     if (message.sentByDoctor) {
@@ -109,20 +93,21 @@ const MessagesComponent = (props) => {
                                       onClick={() => {
                                         sendMessage();
                                       }}
-                                  > send message</Button>
+                                  > Send message</Button>
                           </Form>
                       </div>
 
                   </div>
 
               </div>
+
+
+            {/*<MessageComponent message={"mockedMessage"}></MessageComponent>
+            <MyMessageComponent message={"mockedMyMessage"}></MyMessageComponent>*/}
           </div>
-        ) : (
-          <div>Please select Patient to show messages.</div>
-        )}
       </div>
     </div>
   );
 };
 
-export default MessagesComponent;
+export default PatientMessagesComponent;
