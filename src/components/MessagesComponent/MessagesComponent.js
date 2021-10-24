@@ -9,10 +9,6 @@ const MessagesComponent = (props) => {
   const [text, setText] = useState("");
   const [socket, setSocket] = useState(null);
 
-  useEffect(() => {
-      console.log('Rohadek messagek', messages);
-  })
-
     useEffect(() => {
         let serverUrl = "ws://localhost:8080/";
         let webSocket = new WebSocket(serverUrl + 'chat');
@@ -20,7 +16,6 @@ const MessagesComponent = (props) => {
         webSocket.onmessage = (message) => {
             let parsedData = JSON.parse(message.data);
             parsedData.sender = "Doctor Strange";
-            console.log(parsedData);
             // addMessage(parsedData);
             messages.push(parsedData);
             setMessages([...messages]);
