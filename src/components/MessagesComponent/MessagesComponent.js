@@ -10,7 +10,7 @@ const MessagesComponent = (props) => {
   const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        let serverUrl = "ws://varian-dd-2021.herokuapp.com/";
+        let serverUrl = "wss://varian-dd-2021.herokuapp.com/";
         let webSocket = new WebSocket(serverUrl + 'chat');
 
         webSocket.onmessage = (message) => {
