@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, Container, Dropdown, Row, Tab} from "react-bootstrap";
+import {Col, Container, Dropdown, Row} from "react-bootstrap";
 
 
 export default function PatientFileComponent(props) {

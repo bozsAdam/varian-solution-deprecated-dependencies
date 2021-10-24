@@ -1,10 +1,33 @@
 import './PatientPage.css';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Tab, Tabs} from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import {useHistory} from "react-router-dom";
+import PatientFileComponent from "../../components/PatientFileComponent";
+import httpService from "../../services/httpsService";
 
 function PatientPage() {
+
+    const [patient, setPatient] = useState(null);
+    const [patientStatusReports, setPatientStatusReports] = useState(null);
+    const [isLoadingStatusReports, setIsLoadingStatusReports] = useState(false);
+
+    useEffect(() => {
+        httpService.getPatient(1).then(patient => {
+            if (patient) {
+                setPatient(patient);
+                setIsLoadingStatusReports(true)
+                httpService.getPatientReports(1).then(patientStatusReports => {
+                    if (patientStatusReports) setPatientStatusReports(patientStatusReports);
+                    setIsLoadingStatusReports(false);
+                });
+            }
+        })
+    });
+
+    const selectStatusReport = (reportId) => {
+        // Do nothing!
+    }
 
     const history = useHistory();
 
@@ -19,7 +42,14 @@ function PatientPage() {
                     <h1>Home</h1>
                 </Tab>
                 <Tab eventKey="my-files" title="My Files">
-                    <h1>Patient File</h1>
+                    {patient && (
+                      <PatientFileComponent
+                        selectedPatient={patient}
+                        selectStatusReport={selectStatusReport}
+                        patientStatusReports={patientStatusReports}
+                        isLoadingStatusReports={isLoadingStatusReports}
+                      />
+                    )}
                 </Tab>
                 <Tab eventKey="messages" title="Messages" >
                     <h1>Messages</h1>
