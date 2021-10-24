@@ -4,6 +4,18 @@
     display: flex;
 }
 
+.card-container {
+    display: flex;
+}
+
+.card-container.left {
+    justify-content: flex-start;
+}
+
+.card-container.right {
+    justify-content: flex-end;
+}
+
 #messages-patient-list {
     width: max-content;
     padding: 0 20px 0 0;
