@@ -7,6 +7,7 @@ import PatientFileComponent from "../../components/PatientFileComponent";
 import httpService from "../../services/httpsService";
 
 function PatientPage() {
+    const [tabKey, setTabKey] = useState('home');
 
     const [patient, setPatient] = useState(null);
     const [patientStatusReports, setPatientStatusReports] = useState(null);
@@ -37,7 +38,12 @@ function PatientPage() {
 
     return (
         <div className='patient-page'>
-            <Tabs defaultActiveKey="home" id="uncontrolled-tab-example" className="mb-3">
+            <Tabs
+              activeKey={tabKey}
+              id="patient-tab"
+              className="mb-3"
+              onSelect={(selectedTabKey) => setTabKey(selectedTabKey)}
+            >
                 <Tab eventKey="home" title="Home">
                     <h1>Home</h1>
                 </Tab>
@@ -60,9 +66,12 @@ function PatientPage() {
                             clickHandler('/createreport');
                         }}>Create status report</Button>
                         <Button id='view-btn' variant='primary' onClick={() => {
-                            clickHandler('/viewreports');
+                            setTabKey()
                         }}>View status report history</Button>
                     </div>
+                </Tab>
+                <Tab eventKey="report-history" title="Report History" >
+                    <h1>Report History</h1>
                 </Tab>
             </Tabs>
         </div>
